@@ -3,6 +3,9 @@ extends Node3D
 const PlayerController = preload("res://scripts/player/player_controller.gd")
 const CameraController = preload("res://scripts/camera/camera_controller.gd")
 const AnimationDriver = preload("res://scripts/animation/animation_driver.gd")
+const RangerModel = preload("res://assets/characters/ranger/ranger_tripo.glb")
+const RANGER_SOURCE_HEIGHT := 0.9786358
+const RANGER_HEIGHT := 1.78
 var player: CharacterBody3D
 var camera_rig: Node3D
 
@@ -79,23 +82,10 @@ func build_player() -> void:
 	var socket := Node3D.new()
 	socket.name = "ModelSocket"
 	visual.add_child(socket)
-	var mesh := MeshInstance3D.new()
-	mesh.name = "Placeholder"
-	var capsule := CapsuleMesh.new()
-	capsule.radius = 0.35
-	capsule.height = 1.8
-	mesh.mesh = capsule
-	mesh.position.y = 0.9
-	var material := StandardMaterial3D.new()
-	material.albedo_color = Color("e2ae52")
-	mesh.material_override = material
-	socket.add_child(mesh)
-	var nose := MeshInstance3D.new()
-	var nose_mesh := BoxMesh.new()
-	nose_mesh.size = Vector3(0.2, 0.15, 0.25)
-	nose.mesh = nose_mesh
-	nose.position = Vector3(0, 1.45, -0.35)
-	socket.add_child(nose)
+	var model := RangerModel.instantiate() as Node3D
+	model.rotation.y = PI / 2.0
+	model.scale = Vector3.ONE * (RANGER_HEIGHT / RANGER_SOURCE_HEIGHT)
+	socket.add_child(model)
 	var driver := Node.new()
 	driver.set_script(AnimationDriver)
 	driver.name = "AnimationDriver"
@@ -103,6 +93,36 @@ func build_player() -> void:
 	player.visual = visual
 	player.animation_driver = driver
 	add_child(player)
+	driver.animation_tree = build_ranger_animation_tree(model)
+
+func build_ranger_animation_tree(model: Node) -> AnimationTree:
+	var clips := model.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if clips == null:
+		return null
+	var blend := AnimationNodeBlendSpace1D.new()
+	blend.min_space = 0.0
+	blend.max_space = player.run_speed
+	blend.sync = true
+	var speeds := {"idle": 0.0, "walk": player.walk_speed, "run": player.run_speed}
+	for clip: StringName in speeds:
+		if not clips.has_animation(clip):
+			return null
+		clips.get_animation(clip).loop_mode = Animation.LOOP_LINEAR
+		var node := AnimationNodeAnimation.new()
+		node.animation = clip
+		blend.add_blend_point(node, speeds[clip], -1, clip)
+	var graph := AnimationNodeBlendTree.new()
+	graph.add_node("locomotion", blend, Vector2(0, 100))
+	graph.connect_node("output", 0, "locomotion")
+	var tree := AnimationTree.new()
+	tree.name = "Locomotion"
+	tree.tree_root = graph
+	tree.callback_mode_process = AnimationMixer.ANIMATION_CALLBACK_MODE_PROCESS_PHYSICS
+	model.add_child(tree)
+	tree.anim_player = tree.get_path_to(clips)
+	tree.root_node = tree.get_path_to(clips.get_node(clips.root_node))
+	tree.active = true
+	return tree
 
 func build_camera() -> void:
 	camera_rig = Node3D.new()
@@ -113,7 +133,6 @@ func build_camera() -> void:
 	pitch.rotation.x = deg_to_rad(-15)
 	camera_rig.add_child(pitch)
 	var arm := SpringArm3D.new()
-	arm.spring_length = 5
 	arm.margin = 0.2
 	arm.collision_mask = 1
 	var shape := SphereShape3D.new()

@@ -1,3 +1,6 @@
 Loopbound/.godot/
 Loopbound/exports/
 *.tmp
+/docs/art/ranger/
+/docs/phase_1_preview.png
+/snapshots/

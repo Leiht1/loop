@@ -10,6 +10,7 @@
 - [SCENE_STANDARD](SCENE_STANDARD.md) — 场景标准
 - [ANIMATION_STANDARD](ANIMATION_STANDARD.md) — 动画标准
 - [CODEX_WORK_RULES](CODEX_WORK_RULES.md) — 开发规则
+- [主角动画对比交接](RANGER_ANIMATION_HANDOFF.md) — 两版素材、当前进度和下一次验证步骤
 - [PHASE_1_SPEC](PHASE_1_SPEC.md) — 第一阶段规格
 - [DECISIONS](DECISIONS.md) — 决策记录
 - [CHANGELOG](CHANGELOG.md) — 变更记录
