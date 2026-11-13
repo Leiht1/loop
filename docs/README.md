@@ -17,3 +17,6 @@
 
 版本、单机定位与居中镜头已确认。正式模型、纹理预算、硬件与导出模板待确认，见 DECISIONS。
 - [主角视觉风格规范 V1.0](art/CHARACTER_VISUAL_STYLE.md) — 东方幻想青年游侠的外观、配色与制作约束。
+
+- [主角开发基准 V1](art/RANGER_BASELINE.md) — 当前入库模型、源文件与实测数据。
+- [骨架与动作细调方案](RANGER_RIG_AND_MOTION_PLAN.md) — 参考研究、手指扩骨与武器挂点规划。

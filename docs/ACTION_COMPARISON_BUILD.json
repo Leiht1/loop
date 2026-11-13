@@ -1,0 +1,14 @@
+[
+  {
+    "variant": "topology",
+    "vertices": 2282,
+    "seconds": 1.22,
+    "method": "component-aware corrected garment weights; analytic leg targets and rest-axis quaternion animation"
+  },
+  {
+    "variant": "triangles",
+    "vertices": 57651,
+    "seconds": 5.63,
+    "method": "component-aware corrected garment weights; analytic leg targets and rest-axis quaternion animation"
+  }
+]
