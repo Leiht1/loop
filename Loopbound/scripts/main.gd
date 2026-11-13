@@ -3,9 +3,7 @@ extends Node3D
 const PlayerController = preload("res://scripts/player/player_controller.gd")
 const CameraController = preload("res://scripts/camera/camera_controller.gd")
 const AnimationDriver = preload("res://scripts/animation/animation_driver.gd")
-const RangerModel = preload("res://assets/characters/ranger/ranger_tripo.glb")
-const RANGER_SOURCE_HEIGHT := 0.9786358
-const RANGER_HEIGHT := 1.78
+const RangerModel = preload("res://assets/characters/ranger/action_comparison/locomotion_v3.glb")
 var player: CharacterBody3D
 var camera_rig: Node3D
 
@@ -83,8 +81,6 @@ func build_player() -> void:
 	socket.name = "ModelSocket"
 	visual.add_child(socket)
 	var model := RangerModel.instantiate() as Node3D
-	model.rotation.y = PI / 2.0
-	model.scale = Vector3.ONE * (RANGER_HEIGHT / RANGER_SOURCE_HEIGHT)
 	socket.add_child(model)
 	var driver := Node.new()
 	driver.set_script(AnimationDriver)
@@ -94,26 +90,80 @@ func build_player() -> void:
 	player.animation_driver = driver
 	add_child(player)
 	driver.animation_tree = build_ranger_animation_tree(model)
+	driver.dodge_node = driver.animation_tree.tree_root.get_node("dodge")
 
 func build_ranger_animation_tree(model: Node) -> AnimationTree:
 	var clips := model.get_node_or_null("AnimationPlayer") as AnimationPlayer
 	if clips == null:
 		return null
-	var blend := AnimationNodeBlendSpace1D.new()
-	blend.min_space = 0.0
-	blend.max_space = player.run_speed
+	# Each gameplay instance owns its edited clips; the preview keeps baked root travel.
+	for library_name in clips.get_animation_library_list():
+		var library := clips.get_animation_library(library_name).duplicate(true) as AnimationLibrary
+		clips.remove_animation_library(library_name)
+		clips.add_animation_library(library_name, library)
+	var replacements := {"idle":"Idle", "walk":"Walk", "run":"Run", "walk_left":"Left", "walk_right":"Right", "walk_back":"Back", "turn_left":"OriginalTurnLeft", "turn_right":"OriginalTurnRight"}
+	var library := clips.get_animation_library("")
+	for clip_name in replacements:
+		var animation := load("res://assets/animations/Library_" + replacements[clip_name] + ".tres").duplicate(true) as Animation
+		animation.loop_mode = Animation.LOOP_NONE if clip_name.begins_with("turn_") else Animation.LOOP_LINEAR
+		if library.has_animation(clip_name):
+			library.remove_animation(clip_name)
+		library.add_animation(clip_name, animation)
+	library.remove_animation("look_around")
+	library.add_animation("look_around", clips.get_animation("idle").duplicate(true))
+	var blend := AnimationNodeBlendSpace2D.new()
+	blend.min_space = Vector2(-4, -4)
+	blend.max_space = Vector2(4, 4)
 	blend.sync = true
-	var speeds := {"idle": 0.0, "walk": player.walk_speed, "run": player.run_speed}
-	for clip: StringName in speeds:
-		if not clips.has_animation(clip):
-			return null
-		clips.get_animation(clip).loop_mode = Animation.LOOP_LINEAR
+	var positions := {"idle":Vector2.ZERO, "walk":Vector2(0,2), "run":Vector2(0,4), "walk_left":Vector2(-2,0), "walk_right":Vector2(2,0), "walk_back":Vector2(0,-2)}
+	for clip_name in positions:
 		var node := AnimationNodeAnimation.new()
-		node.animation = clip
-		blend.add_blend_point(node, speeds[clip], -1, clip)
+		node.animation = clip_name
+		blend.add_blend_point(node, positions[clip_name], -1, clip_name)
+	# Horizontal travel belongs to CharacterBody3D so walls constrain each dodge.
+	for clip: String in ["dodge_front", "dodge_back", "dodge_left", "dodge_right"]:
+		var animation := clips.get_animation(clip)
+		animation.loop_mode = Animation.LOOP_NONE
+		for track in animation.get_track_count():
+			if animation.track_get_type(track) == Animation.TYPE_POSITION_3D and String(animation.track_get_path(track)).ends_with(":Root"):
+				for key in animation.track_get_key_count(track):
+					var position: Vector3 = animation.track_get_key_value(track, key)
+					animation.track_set_key_value(track, key, Vector3(0, position.y, 0))
+	var dodge := AnimationNodeAnimation.new()
+	dodge.animation = "dodge_front"
+	var one_shot := AnimationNodeOneShot.new()
+	one_shot.sync = true
+	one_shot.fadein_time = 0.09
+	one_shot.fadeout_time = 0.12
 	var graph := AnimationNodeBlendTree.new()
 	graph.add_node("locomotion", blend, Vector2(0, 100))
-	graph.connect_node("output", 0, "locomotion")
+	graph.add_node("motion_rate", AnimationNodeTimeScale.new())
+	var turn_clip := AnimationNodeAnimation.new()
+	turn_clip.animation = "turn_left"
+	graph.add_node("turn_clip", turn_clip)
+	var turn := AnimationNodeOneShot.new()
+	turn.fadein_time = 0.04
+	turn.fadeout_time = 0.0
+	graph.add_node("turn", turn)
+	graph.connect_node("motion_rate", 0, "locomotion")
+	graph.connect_node("turn", 0, "motion_rate")
+	graph.connect_node("turn", 1, "turn_clip")
+	graph.add_node("dodge", dodge, Vector2(0, 300))
+	graph.add_node("evasion", one_shot, Vector2(250, 100))
+	clips.get_animation("look_around").loop_mode = Animation.LOOP_NONE
+	var look := AnimationNodeAnimation.new()
+	look.animation = "look_around"
+	var idle_variation := AnimationNodeOneShot.new()
+	idle_variation.sync = true
+	idle_variation.fadein_time = 0.4
+	idle_variation.fadeout_time = 0.2
+	graph.add_node("look", look, Vector2(0, -200))
+	graph.add_node("idle_variation", idle_variation, Vector2(150, 0))
+	graph.connect_node("idle_variation", 0, "turn")
+	graph.connect_node("idle_variation", 1, "look")
+	graph.connect_node("evasion", 0, "idle_variation")
+	graph.connect_node("evasion", 1, "dodge")
+	graph.connect_node("output", 0, "evasion")
 	var tree := AnimationTree.new()
 	tree.name = "Locomotion"
 	tree.tree_root = graph

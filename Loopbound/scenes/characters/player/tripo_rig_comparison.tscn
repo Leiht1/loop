@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3]
-
-[ext_resource type="Script" path="res://scripts/animation/action_comparison.gd" id="1"]
-
-[node name="TripoRigComparison" type="Node3D"]
-script = ExtResource("1")
-comparison_variants = Array[String](["triangles", "tripo_corrected"])
-preview_subdir = "tripo_corrected"
-synchronize_cycles = true

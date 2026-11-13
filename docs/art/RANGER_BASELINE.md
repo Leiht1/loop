@@ -1,17 +1,20 @@
-# 主角开发基准模型 V1
+# 当前主角开发模型
 
-2026-11-13，用户确认当前融合版明显改善并要求将此主角入库。登记为唯一主角开发基准，不新增主角候选；敌人后续单独登记。确认的是当前模型与制作流程，六个动作仍需细调。
+2026-11-13，使用用户认可的常规动作第三版作为当前游戏主角，已接入主关卡。
 
-- 可复用 Godot 场景：`Loopbound/scenes/characters/player/ranger_baseline.tscn`。
-- 运行模型：`Loopbound/assets/characters/ranger/action_comparison/tripo_hybrid.glb`。
-- 可编辑源文件：`assets_source/characters/ranger/comparison_tripo_hybrid.blend`。
-- Tripo 原始绑定文件：`assets_source/characters/ranger/animation_inputs/tripo_rigged_original.glb`。
-- 动作参考源：`assets_source/characters/ranger/comparison_triangles.blend`。
-- 重建：Blender 后台运行 `build_tripo_corrected.py -- --hybrid`；验证同方式运行 `verify_tripo_corrected.py -- --hybrid`。
-- 检查入口：`Loopbound/scenes/characters/player/tripo_hybrid_comparison.tscn`，F6，左侧融合版、右侧旧版。
+- Godot 工程为 `Loopbound/project.godot`，F5 运行游戏。
+- 可复用角色场景为 `Loopbound/scenes/characters/player/ranger_baseline.tscn`。
+- 运行模型为 `Loopbound/assets/characters/ranger/action_comparison/locomotion_v3.glb`。
+- 可编辑源为 `assets_source/characters/ranger/locomotion_v3.blend`。
+- 当前生成依赖为 `assets_source/characters/ranger/locomotion_motion_reference.blend`，保存原始中性姿态和步态采样。
+- 原始输入为 `assets_source/characters/ranger/animation_inputs/tripo_rigged_original.glb`。
+- 生成脚本为 `build_locomotion_v3.py`，逐帧验证脚本为 `verify_locomotion.py`。
+- 独立动作预览为 `Loopbound/scenes/characters/player/locomotion_v3.tscn`，F6 运行。
 
-实测数据：96,284 三角面、56,842 个导出顶点、12 个网格、12 个材质、36 张内嵌纹理、41 个蒙皮关节、6 个测试动作；统一对比身高 1.8m，Godot 前方 -Z。导出顶点可能因 UV/法线分离而重复，不等同于建模软件中未拆分顶点数。GLB 内嵌纹理，Godot 生成的对应图片副本和 .import 设置一并保留，便于复现当前材质。
+运行资产包含 96,284 三角面、12 网格、12 材质、36 张内嵌纹理和 71 蒙皮关节，含新增双手 30 根手指骨。角色约 1.8m，Godot 前方为 -Z。八段动作为待机、走路、握拳奔跑、环顾与四向闪避。文件校验记录见 `RANGER_ASSET_REGISTRY.json`。
 
-准确路径、骨名与 SHA-256 校验记录见 `RANGER_ASSET_REGISTRY.json`。入库不代表性能预算、主场景接入、武器握持或正式动作验收完成。当前独立场景不会自动替换主场景角色，避免把未细调动作提前接入控制器。
+游戏内闪避距离为前方 3.3m、后方 2.8m、左右各 3.0m，配合动作阶段非线性位移并经过碰撞求解。详细输入与接入逻辑见 `../RANGER_ANIMATION_HANDOFF.md`。
 
-后续从此版本派生手指绑定与动作精修版本，保留此基准及旧版对照文件。原有 41 骨名称、父子关系和静止姿态应保持稳定；新增骨骼优先作为现有节点子骨，降低已有动画失效风险。手指完成后仍需实际重新导出与验证，不保证只加骨就能正确握持。
+旧测试版本及其生成产物已清理，本地恢复包保存在忽略目录。手指握持、衣摆变形、步幅与速度匹配继续精调。
+
+走跑和环顾参考 `animation_inputs/tripo_motion_reference.glb`，重定向到当前校正骨架。站立 5 秒后触发环顾，移动或闪避淡出环顾。

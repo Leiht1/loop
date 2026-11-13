@@ -13,7 +13,7 @@ var pitch: Node3D
 var arm: SpringArm3D
 
 func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if "--no-mouse-capture" in OS.get_cmdline_user_args() else Input.MOUSE_MODE_CAPTURED
 	global_position = target.global_position + Vector3.UP * 1.25
 	distance = clampf(distance, min_distance, max_distance)
 	arm.spring_length = distance
@@ -34,3 +34,10 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	global_position = global_position.lerp(target.global_position + Vector3.UP * 1.25, 1.0 - exp(-follow_speed * delta))
 	arm.spring_length = lerpf(arm.spring_length, distance, 1.0 - exp(-zoom_speed * delta))
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT or what == NOTIFICATION_WM_CLOSE_REQUEST:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+func _exit_tree() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

@@ -1,0 +1,529 @@
+[
+  {
+    "id": "turn180_l",
+    "name": "Pohyb – otočka vľavo",
+    "file": "clips/turn180_l.glb",
+    "category": "locomotion",
+    "weapon": "any",
+    "source": "@quaternius_ual2/UAL2_RM.glb#Turn180_L_Armature.001",
+    "sig": "20756380:1791232919",
+    "test": false,
+    "frames": 51,
+    "duration": 1.667,
+    "travel": {
+      "fwd": 0.087,
+      "left": 0.011,
+      "turn_deg": -180.0
+    },
+    "in_place": true,
+    "hits": [],
+    "react": {
+      "hit": {
+        "onset": 0.0,
+        "peak": 0.233,
+        "push_dir": [
+          -0.388,
+          0.921
+        ],
+        "push_mag": 0.076,
+        "push_src": "hips",
+        "root_disp": 0.088
+      },
+      "evade": {
+        "dodge_dir": [
+          0.124,
+          0.992
+        ],
+        "dodge_dist": 0.088,
+        "t_clear": 0.733,
+        "t_peak": 1.667,
+        "duck": 0.0
+      },
+      "block": {
+        "guard_t": 0.0,
+        "guard_h": 0.983,
+        "arm": "left"
+      }
+    },
+    "retarget": {
+      "profile": "local",
+      "mode": "frames",
+      "version": 3,
+      "mapped_bones": 64
+    },
+    "pack": "quaternius_ual2",
+    "pack_label": "Quaternius UAL2",
+    "pack_test": false,
+    "licence": {
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "credit": "Universal Animation Library 2 by Quaternius",
+      "url": "https://quaternius.itch.io/universal-animation-library-2",
+      "changes": "retargeted onto the character, resampled to 30 fps",
+      "label": "Quaternius UAL2"
+    },
+    "origin": "pack",
+    "src_name": "Turn180_L",
+    "name_en": "Move - turn around left",
+    "keywords": [
+      "pohyb",
+      "otočka",
+      "vľavo",
+      "move",
+      "turn",
+      "around",
+      "left"
+    ],
+    "hits_all": [],
+    "hits_auto": [],
+    "hits_manual": false,
+    "contact": null,
+    "tags": [
+      "in_place",
+      "turns_right"
+    ],
+    "overridden": false
+  },
+  {
+    "id": "turn180_r",
+    "name": "Pohyb – otočka vpravo",
+    "file": "clips/turn180_r.glb",
+    "category": "locomotion",
+    "weapon": "any",
+    "source": "@quaternius_ual2/UAL2_RM.glb#Turn180_R_Armature.001",
+    "sig": "20756380:1791232919",
+    "test": false,
+    "frames": 51,
+    "duration": 1.667,
+    "travel": {
+      "fwd": 0.087,
+      "left": 0.011,
+      "turn_deg": 180.0
+    },
+    "in_place": true,
+    "hits": [],
+    "react": {
+      "hit": {
+        "onset": 0.0,
+        "peak": 1.033,
+        "push_dir": [
+          0.587,
+          0.81
+        ],
+        "push_mag": 0.077,
+        "push_src": "hips",
+        "root_disp": 0.088
+      },
+      "evade": {
+        "dodge_dir": [
+          0.124,
+          0.992
+        ],
+        "dodge_dist": 0.088,
+        "t_clear": 0.7,
+        "t_peak": 1.667,
+        "duck": 0.0
+      },
+      "block": {
+        "guard_t": 0.0,
+        "guard_h": 0.999,
+        "arm": "right"
+      }
+    },
+    "retarget": {
+      "profile": "local",
+      "mode": "frames",
+      "version": 3,
+      "mapped_bones": 64
+    },
+    "pack": "quaternius_ual2",
+    "pack_label": "Quaternius UAL2",
+    "pack_test": false,
+    "licence": {
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "credit": "Universal Animation Library 2 by Quaternius",
+      "url": "https://quaternius.itch.io/universal-animation-library-2",
+      "changes": "retargeted onto the character, resampled to 30 fps",
+      "label": "Quaternius UAL2"
+    },
+    "origin": "pack",
+    "src_name": "Turn180_R",
+    "name_en": "Move - turn around right",
+    "keywords": [
+      "pohyb",
+      "otočka",
+      "vpravo",
+      "move",
+      "turn",
+      "around",
+      "right"
+    ],
+    "hits_all": [],
+    "hits_auto": [],
+    "hits_manual": false,
+    "contact": null,
+    "tags": [
+      "in_place",
+      "turns_left"
+    ],
+    "overridden": false
+  },
+  {
+    "id": "walk_bwd_loop",
+    "name": "Chôdza – dozadu 2",
+    "file": "clips/walk_bwd_loop.glb",
+    "category": "locomotion",
+    "weapon": "any",
+    "source": "@quaternius_ual2/UAL2_RM.glb#Walk_Bwd_Loop_Armature.001",
+    "sig": "20756380:1791232919",
+    "test": false,
+    "frames": 41,
+    "duration": 1.333,
+    "travel": {
+      "fwd": -1.461,
+      "left": 0.0,
+      "turn_deg": 0.0
+    },
+    "in_place": false,
+    "hits": [
+      {
+        "t": 0.333,
+        "bone": "foot_r",
+        "speed": 3.28,
+        "point": [
+          -0.141,
+          0.345,
+          -0.442
+        ],
+        "dir": [
+          0.0,
+          0.001,
+          -1.0
+        ]
+      },
+      {
+        "t": 1.0,
+        "bone": "foot_l",
+        "speed": 3.28,
+        "point": [
+          0.089,
+          0.345,
+          -1.172
+        ],
+        "dir": [
+          -0.001,
+          0.001,
+          -1.0
+        ]
+      }
+    ],
+    "react": {
+      "hit": {
+        "onset": 0.0,
+        "peak": 0.533,
+        "push_dir": [
+          -0.058,
+          -0.998
+        ],
+        "push_mag": 0.988,
+        "push_src": "hips",
+        "root_disp": 1.461
+      },
+      "evade": {
+        "dodge_dir": [
+          0.0,
+          -1.0
+        ],
+        "dodge_dist": 1.461,
+        "t_clear": 0.233,
+        "t_peak": 1.333,
+        "duck": 0.006
+      },
+      "block": {
+        "guard_t": 0.0,
+        "guard_h": 1.09,
+        "arm": "left"
+      }
+    },
+    "retarget": {
+      "profile": "local",
+      "mode": "frames",
+      "version": 3,
+      "mapped_bones": 64
+    },
+    "pack": "quaternius_ual2",
+    "pack_label": "Quaternius UAL2",
+    "pack_test": false,
+    "licence": {
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "credit": "Universal Animation Library 2 by Quaternius",
+      "url": "https://quaternius.itch.io/universal-animation-library-2",
+      "changes": "retargeted onto the character, resampled to 30 fps",
+      "label": "Quaternius UAL2"
+    },
+    "origin": "pack",
+    "src_name": "Walk_Bwd_Loop",
+    "name_en": "Walk - backwards 2",
+    "keywords": [
+      "chôdza",
+      "dozadu",
+      "walk",
+      "backwards",
+      "back"
+    ],
+    "hits_all": [
+      {
+        "t": 0.333,
+        "bone": "foot_r",
+        "speed": 3.28,
+        "point": [
+          -0.141,
+          0.345,
+          -0.442
+        ],
+        "dir": [
+          0.0,
+          0.001,
+          -1.0
+        ]
+      },
+      {
+        "t": 1.0,
+        "bone": "foot_l",
+        "speed": 3.28,
+        "point": [
+          0.089,
+          0.345,
+          -1.172
+        ],
+        "dir": [
+          -0.001,
+          0.001,
+          -1.0
+        ]
+      }
+    ],
+    "hits_auto": [
+      {
+        "t": 0.333,
+        "bone": "foot_r",
+        "speed": 3.28,
+        "point": [
+          -0.141,
+          0.345,
+          -0.442
+        ],
+        "dir": [
+          0.0,
+          0.001,
+          -1.0
+        ]
+      },
+      {
+        "t": 1.0,
+        "bone": "foot_l",
+        "speed": 3.28,
+        "point": [
+          0.089,
+          0.345,
+          -1.172
+        ],
+        "dir": [
+          -0.001,
+          0.001,
+          -1.0
+        ]
+      }
+    ],
+    "hits_manual": false,
+    "contact": {
+      "t": 0.333,
+      "bone": "foot_r",
+      "speed": 3.28,
+      "point": [
+        -0.141,
+        0.345,
+        -0.442
+      ],
+      "dir": [
+        0.0,
+        0.001,
+        -1.0
+      ]
+    },
+    "tags": [
+      "steps_back"
+    ],
+    "overridden": false
+  },
+  {
+    "id": "walk_l_loop",
+    "name": "Chôdza – bokom vľavo",
+    "file": "clips/walk_l_loop.glb",
+    "category": "locomotion",
+    "weapon": "any",
+    "source": "@quaternius_ual2/UAL2_RM.glb#Walk_L_Loop_Armature.001",
+    "sig": "20756380:1791232919",
+    "test": false,
+    "frames": 41,
+    "duration": 1.333,
+    "travel": {
+      "fwd": 0.0,
+      "left": 0.939,
+      "turn_deg": 0.0
+    },
+    "in_place": false,
+    "hits": [],
+    "react": {
+      "hit": {
+        "onset": 0.0,
+        "peak": 0.1,
+        "push_dir": [
+          1.0,
+          -0.005
+        ],
+        "push_mag": 0.576,
+        "push_src": "hips",
+        "root_disp": 0.939
+      },
+      "evade": {
+        "dodge_dir": [
+          1.0,
+          0.0
+        ],
+        "dodge_dist": 0.939,
+        "t_clear": 0.367,
+        "t_peak": 1.333,
+        "duck": 0.006
+      },
+      "block": {
+        "guard_t": 0.0,
+        "guard_h": 0.957,
+        "arm": "left"
+      }
+    },
+    "retarget": {
+      "profile": "local",
+      "mode": "frames",
+      "version": 3,
+      "mapped_bones": 64
+    },
+    "pack": "quaternius_ual2",
+    "pack_label": "Quaternius UAL2",
+    "pack_test": false,
+    "licence": {
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "credit": "Universal Animation Library 2 by Quaternius",
+      "url": "https://quaternius.itch.io/universal-animation-library-2",
+      "changes": "retargeted onto the character, resampled to 30 fps",
+      "label": "Quaternius UAL2"
+    },
+    "origin": "pack",
+    "src_name": "Walk_L_Loop",
+    "name_en": "Walk - sideways left",
+    "keywords": [
+      "chôdza",
+      "bokom",
+      "vľavo",
+      "walk",
+      "sideways",
+      "left",
+      "strafe"
+    ],
+    "hits_all": [],
+    "hits_auto": [],
+    "hits_manual": false,
+    "contact": null,
+    "tags": [
+      "steps_left"
+    ],
+    "overridden": false
+  },
+  {
+    "id": "walk_r_loop",
+    "name": "Chôdza – bokom vpravo",
+    "file": "clips/walk_r_loop.glb",
+    "category": "locomotion",
+    "weapon": "any",
+    "source": "@quaternius_ual2/UAL2_RM.glb#Walk_R_Loop_Armature.001",
+    "sig": "20756380:1791232919",
+    "test": false,
+    "frames": 41,
+    "duration": 1.333,
+    "travel": {
+      "fwd": -0.0,
+      "left": -0.835,
+      "turn_deg": 0.0
+    },
+    "in_place": false,
+    "hits": [],
+    "react": {
+      "hit": {
+        "onset": 0.0,
+        "peak": 0.767,
+        "push_dir": [
+          -1.0,
+          0.007
+        ],
+        "push_mag": 0.621,
+        "push_src": "hips",
+        "root_disp": 0.835
+      },
+      "evade": {
+        "dodge_dir": [
+          -1.0,
+          -0.0
+        ],
+        "dodge_dist": 0.835,
+        "t_clear": 0.4,
+        "t_peak": 1.333,
+        "duck": 0.0
+      },
+      "block": {
+        "guard_t": 0.067,
+        "guard_h": 0.949,
+        "arm": "left"
+      }
+    },
+    "retarget": {
+      "profile": "local",
+      "mode": "frames",
+      "version": 3,
+      "mapped_bones": 64
+    },
+    "pack": "quaternius_ual2",
+    "pack_label": "Quaternius UAL2",
+    "pack_test": false,
+    "licence": {
+      "licence": "CC0 1.0",
+      "licence_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "credit": "Universal Animation Library 2 by Quaternius",
+      "url": "https://quaternius.itch.io/universal-animation-library-2",
+      "changes": "retargeted onto the character, resampled to 30 fps",
+      "label": "Quaternius UAL2"
+    },
+    "origin": "pack",
+    "src_name": "Walk_R_Loop",
+    "name_en": "Walk - sideways right",
+    "keywords": [
+      "chôdza",
+      "bokom",
+      "vpravo",
+      "walk",
+      "sideways",
+      "right",
+      "strafe"
+    ],
+    "hits_all": [],
+    "hits_auto": [],
+    "hits_manual": false,
+    "contact": null,
+    "tags": [
+      "steps_right"
+    ],
+    "overridden": false
+  }
+]

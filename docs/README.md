@@ -10,7 +10,7 @@
 - [SCENE_STANDARD](SCENE_STANDARD.md) — 场景标准
 - [ANIMATION_STANDARD](ANIMATION_STANDARD.md) — 动画标准
 - [CODEX_WORK_RULES](CODEX_WORK_RULES.md) — 开发规则
-- [主角动画对比交接](RANGER_ANIMATION_HANDOFF.md) — 两版素材、当前进度和下一次验证步骤
+- [主角动画对比交接](RANGER_ANIMATION_HANDOFF.md) — 游戏接入、操作、当前素材与后续精调
 - [PHASE_1_SPEC](PHASE_1_SPEC.md) — 第一阶段规格
 - [DECISIONS](DECISIONS.md) — 决策记录
 - [CHANGELOG](CHANGELOG.md) — 变更记录
@@ -20,3 +20,5 @@
 
 - [主角开发基准 V1](art/RANGER_BASELINE.md) — 当前入库模型、源文件与实测数据。
 - [骨架与动作细调方案](RANGER_RIG_AND_MOTION_PLAN.md) — 参考研究、手指扩骨与武器挂点规划。
+
+- [主角常规动作第三版](RANGER_LOCOMOTION_V3.md) — 当前走跑重心、71 骨握拳与四向轻功滑行闪避。

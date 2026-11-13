@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/animation/action_comparison.gd" id="1"]
+
+[node name="LocomotionV3" type="Node3D"]
+script = ExtResource("1")
+comparison_variants = Array[String](["locomotion_v3"])
+preview_subdir = "locomotion_v3"
+actions = Array[String](["idle", "walk", "run", "dodge_front", "dodge_back", "dodge_left", "dodge_right", "look_around"])
+one_shot_actions = Array[String](["dodge_front", "dodge_back", "dodge_left", "dodge_right"])
+one_shot_displacements = Dictionary[String, Vector3]({
+"dodge_front": Vector3(0, 0, -3.30),
+"dodge_back": Vector3(0, 0, 2.80),
+"dodge_left": Vector3(-3.00, 0, 0),
+"dodge_right": Vector3(3.00, 0, 0)
+})
+use_function_view_keys = true
+capture_phases = Array[float]([0.0, 0.15, 0.28, 0.45, 0.62, 0.78, 0.999])
+help_text = "1 待机  2 走路  3 握拳奔跑  4 前闪  5 后闪  6 左闪  7 右闪  8 环顾 | F1 正面 / F2 侧面 / F3 背面 | 空格 暂停 | G 灰模 / T 原材质"
